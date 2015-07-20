@@ -3,9 +3,11 @@
 ##What does it do?
 ------------------
 nmwizConverter is a simple script that takes in as command-line arguments:
+
 1. a .pdb file
 2. a file containing normal mode data, created using CHARMM
 3. the name of the molecule these files pertains to (or any other name really)
+
 The script returns a file in .nmd format which can then be imported directly
 into Normal Mode Wizard, a plugin for VMD which allows researchers to
 visualize the vibrational modes of molecules. 
@@ -38,7 +40,8 @@ useful.
 ##I want to know more!
 ----------------------
 Check out these sweet websites:
-*NMWiz - http://prody.csb.pitt.edu/nmwiz/
-*VMD - http://www.ks.uiuc.edu/Research/vmd/
-*Markelz research group - http://markelz.physics.buffalo.edu
+
+* NMWiz - http://prody.csb.pitt.edu/nmwiz/
+* VMD - http://www.ks.uiuc.edu/Research/vmd/
+* Markelz research group - http://markelz.physics.buffalo.edu
 
