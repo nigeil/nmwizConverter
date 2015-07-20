@@ -40,4 +40,5 @@ __
 Check out these sweet websites:
 NMWiz - http://prody.csb.pitt.edu/nmwiz/
 VMD - http://www.ks.uiuc.edu/Research/vmd/
+Markelz research group - http://markelz.physics.buffalo.edu
 
