@@ -23,8 +23,9 @@ def isInt(inString):
 
 #Check for correct number of command line arguments
 if len(sys.argv) != 4:
-    print("Error; wrong number of command line arguments.")
-    print("usage: nmwizConverter filename1.pdb filename2.out name_of_protein")
+    print("Error: incorrect number of command line arguments provided.")
+    print("Usage: nmwizConverter structure.pdb modes.out name_of_molecule")
+    sys.exit(2)
 
 #Global variables 
 pdbFilename = sys.argv[1]
@@ -79,6 +80,31 @@ for line in modeLines:
         atoms[int(newMode.atomNumber) - 1].modes.append(newMode)
 
 
+#Ask user which chains (tags) they want printed to the ouput file, and remove
+#atoms with these tags before printing.
+tags = set()
+for atom in atoms:
+    if atom.tag not in tags:
+        tags.add(atom.tag)
+keepTags = set(tags)
+
+if len(tags) > 1:
+    print("More than one chain/tag is present in the .pdb file. They are listed below:")
+    for tag in tags:
+        print(tag)
+    for tag in tags:
+        keepMeFlag = input("Keep atoms of chain/tag \"" + tag + "\" in output file? y/n: ")
+        if keepMeFlag == 'n' or keepMeFlag == 'N' or keepMeFlag == 'no':
+            keepTags.remove(tag)
+    keepAtoms = list(atoms)
+    for atom in atoms:
+        if atom.tag not in keepTags:
+            keepAtoms.remove(atom)
+    atoms = list(keepAtoms)
+if len(keepTags) < 1:
+    print("No chains/tags selected for output; exiting.")
+    sys.exit(0)
+
 #Assemble data into a list printable strings
 printTheseLines = []
 
@@ -95,7 +121,7 @@ for atom in atoms:
     atomNames = atomNames + atom.atomName + " "
     resNames = resNames + atom.resName + " "
     resIDs = resIDs + atom.resID + " "
-    chainIDs = chainIDs + "A" + " "
+    chainIDs = chainIDs + atom.tag + " "
     bFactors = bFactors + atom.bFactor + " "
     coordinates = coordinates + atom.printCoordinates() + " "
 printTheseLines.append("atomnames" + " " + atomNames)
